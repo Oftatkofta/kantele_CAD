@@ -15,9 +15,10 @@ The calculator is built around three practical assumptions:
    - Same material
    - Same linear density μ
    - Therefore, for equal tension:  
-	\[
-	L \propto \frac{1}{f}
-	\]
+
+	<p align="center">
+	  <img alt="L proportional to 1 over f" src="https://latex.codecogs.com/svg.image?L%20%5Cpropto%20%5Cfrac%7B1%7D%7Bf%7D" />
+	</p>
 
 
 2. **The drone often uses a different gauge**
