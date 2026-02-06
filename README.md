@@ -16,7 +16,7 @@ The calculator is built around three practical assumptions:
    - Same linear density μ
    - Therefore, for equal tension:  
 
-	<p align="center">
+	<p align="left">
 	  <img alt="L proportional to 1 over f" src="https://latex.codecogs.com/svg.image?L%20%5Cpropto%20%5Cfrac%7B1%7D%7Bf%7D" />
 	</p>
 
