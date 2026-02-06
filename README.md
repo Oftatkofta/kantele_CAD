@@ -11,7 +11,7 @@ Its primary output is **string speaking lengths** suitable for use as **parametr
 
 The calculator is built around three practical assumptions:
 
-1. **Melody strings usually share the same gauge**
+1. **Melody strings share the same gauge**
    - Same material
    - Same linear density μ
    - Therefore, for equal tension:  
@@ -21,7 +21,7 @@ The calculator is built around three practical assumptions:
 	</p>
 
 
-2. **The drone often uses a different gauge**
+2. **The drone can use a different gauge**
    - Different μ
    - Needs explicit handling to:
      - match melody feel, **or**
@@ -44,14 +44,10 @@ This tool separates:
 ### Melody strings
 - All melody strings are assumed to be **identical gauge**
 - You specify:
-  - a list of notes
+  - a list of notes, like; D4, E4, F4, G4, A4 for a minor tuned kantele (F#4 for major)
   - one **anchor note + physical length**
-- All other melody lengths are generated automatically by frequency ratios:
-  \[
-  L_i = L_\text{anchor} \cdot \frac{f_\text{anchor}}{f_i}
-  \]
-
-This is **stable**, **predictable**, and ideal for iterative layout work.
+- All other melody lengths are generated automatically by frequency ratios: <p align="left"> <img alt="L_i = L_anchor * f_anchor / f_i" src="https://latex.codecogs.com/svg.image?L_i%20%3D%20L_%7B%5Ctext%7Banchor%7D%7D%20%5Ccdot%20%5Cfrac%7Bf_%7B%5Ctext%7Banchor%7D%7D%7D%7Bf_i%7D" />
+</p>
 
 ### Drone string
 The drone can:
@@ -89,18 +85,13 @@ Uses a **first-principles round-wound geometry model**.
 Real strings do **not** vibrate over the full pin-to-bridge distance.
 
 This tool models that explicitly:
-
-\[
-L_\text{eff} = L_\text{physical} - \Delta_\text{end}
-\]
-
+<p align="left">
+  <img alt="L_eff = L_physical - Delta_end" src="https://latex.codecogs.com/svg.image?L_%7B%5Ctext%7Beff%7D%7D%20%3D%20L_%7B%5Ctext%7Bphysical%7D%7D%20-%20%5CDelta_%7B%5Ctext%7Bend%7D%7D" />
+</p>
 Where:
 - `L_eff` → used in all physics
 - `L_physical` → what you put in CAD
 - `Δ_end` → empirical correction (typically 2–10 mm)
-
-This single parameter often resolves:
-> “The math looks right, but the instrument feels off.”
 
 ---
 
