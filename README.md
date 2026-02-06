@@ -2,22 +2,23 @@
 
 A **layout-first vibrating-string design tool** for kanteles and related plucked zithers.
 
-This script is intended for **instrument design iteration**, not just physics evaluation.  
-Its primary output is **string speaking lengths** suitable for direct use as **parametric constraints in CAD (e.g. FreeCAD)**.
+This script is intended for **instrument design iteration**, not physics evaluation.  
+Its primary output is **string speaking lengths** suitable for use as **parametric constraints in CAD (e.g. FreeCAD)**.
 
 ---
 
 ## Design Philosophy
 
-The calculator is built around three practical observations:
+The calculator is built around three practical assumptions:
 
 1. **Melody strings usually share the same gauge**
    - Same material
    - Same linear density μ
    - Therefore, for equal tension:  
-     \[
-     L \propto \frac{1}{f}
-     \]
+	\[
+	L \propto \frac{1}{f}
+	\]
+
 
 2. **The drone often uses a different gauge**
    - Different μ
