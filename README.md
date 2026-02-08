@@ -54,7 +54,7 @@ This is used in the design workflow:
 
 A traditional kantelde does not have a drone string, but a custom built hypnotic doom base kantele might.
 The drone string will sit one octave below the D string and can use a thicker gauge and different tension, and therefore a different μ and T.  
-Therefore, the drone string is treated separately.
+
 
 Depending on design goals, the drone can be:
 1. fixed in length (compute resulting tension)
@@ -128,5 +128,64 @@ It **must** be specified explicitly.
 
 Example:
 
---uw-melody 0.000545
---uw-drone 0.000850
+--uw-melody 0.00073039 lbf/in (D'addario PB060)
+--uw-drone 0.00096833  lbf/in (D'addario PB070)
+
+!IMORTANT!
+
+The script uses metric values as output and you havew to specify the unit of the uw value to avoid sadness.
+
+	
+### `geom` mode
+
+- `μ` is computed from a round-wound geometry model
+- Requires diameter, core ratio, and winding pitch
+- Intended for exploratory work
+
+The script will refuse to run unless gauge parameters are provided.
+
+---
+
+## CLI usage examples
+
+### Example 1 — Basic melody layout (default DEFGA scale, CSV output)
+
+```bash
+python kantele_calc.py --anchor D2:0.65 --uw-melody-lbf-per-in 0.00073039 
+```
+
+Generates a 5-string melody layout (D2 E2 F2 G2 A2) and outputs results as CSV.
+
+### Example 2 — Same layout with end correction (TSV output)
+```bash
+python kantele_calc.py --anchor D2:0.65 --end-correction-mm 5 --uw-melody-lbf-per-in 0.00073039 --sep tsv
+```
+Applies a 5 mm end correction and outputs tab-separated values for easy import into spreadsheets.
+
+### Example 3 — Add a drone with fixed physical length
+```bash
+python kantele_calc.py --anchor D2:0.65 --uw-melody-lbf-per-in 0.00073039 --uw-drone-lbf-per-in 0.00096833 --drone-length 0.8 --sep csv
+```
+Adds a drone string at D1 with a fixed length of 80 cm, of a thicker gague, and computes its tension.
+
+### Example 4 — Traditional kantele-style major scale (μ only)
+```bash
+python kantele_calc.py --anchor D4:0.45 --scale "D4,E4,F#4,G4,A4" --mu-melody-kg-per-m 0.0045
+```
+Uses a D-major pentachord in a typical kantele register, anchored at D4 with a 45 cm reference length; assumes a plain steel (piano-wire–like) string with moderate linear density.
+
+
+## Spreadsheet alternative
+
+
+If you prefer not to use the command line, a LibreOffice Calc spreadsheet (kantele_calc.fods) is included in the repository.
+
+The spreadsheet implements the same equations as the CLI tool and updates dynamically when you change:
+
+the anchor length
+
+the string linear density (μ)
+
+the end correction
+
+You can use it to explore string lengths and tensions interactively.
