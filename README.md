@@ -1,14 +1,13 @@
-# Kantele String & Layout Calculator
+# Kantele String Length Calculator
 
 This repository contains a **string length calculator for kantele design**.
 
 The purpose of the script is to support **instrument layout**.  
 It computes **string speaking lengths** that can be used directly as **parametric constraints in CAD** (for example in FreeCAD).
 
-The script does **not** attempt to replace empirical tuning or final voicing.  
-It answers a narrower, earlier design question:
+It answers the design question:
 
-> Given a tuning and a set of string gauges, where must the strings be placed?
+> Given a tuning and a string gauge, how long will the strings be?
 
 ---
 
@@ -45,16 +44,17 @@ If μ and tension are the same for all melody strings, the frequency equation re
   <img alt="L proportional to 1 over f" src="https://latex.codecogs.com/svg.image?L%20%5Cpropto%20%5Cfrac%7B1%7D%7Bf%7D" />
 </p>
 
-This is the key observation used in the design workflow:
+This is used in the design workflow:
 - once one melody string length is fixed,
 - all other melody lengths follow from frequency ratios.
 
 ---
 
-### 2. The drone may use a different gauge
+### 2. An optional drone string may use a different gauge
 
-The drone string often uses a thicker gauge and therefore a different μ.  
-Because of this, the drone string is treated separately.
+A traditional kantelde does not have a drone string, but a custom built hypnotic doom base kantele might.
+The drone string will sit one octave below the D string and can use a thicker gauge and different tension, and therefore a different μ and T.  
+Therefore, the drone string is treated separately.
 
 Depending on design goals, the drone can be:
 1. fixed in length (compute resulting tension)
@@ -79,6 +79,9 @@ where:
 - `L_physical` is what you place in CAD
 - `Δ_end` is an empirical correction (typically a few millimeters)
 
+`Δ_end` can be roughly approximated to be: Δ_end​≈δrod​+δpin, where δpin is the radius of the tuning pin and δrod​​​ the radius of the string bar.
+
+
 ---
 
 ## How the Calculator Is Used
@@ -86,7 +89,44 @@ where:
 ### Step 1: Choose a melody anchor
 
 You must choose:
-- one melody note
+- one melody note (assumes minor tuning with the notes DEFGA) 
 - a **physical length** for that note
 
 Example:
+
+D2 at 650 mm using string PB060 (Phosphor Bronze Acoustic String, .060 gauge)
+
+
+This fixes the **absolute scale** of the instrument for the chosen string gauge.
+
+---
+
+### Step 2: Generate the remaining melody lengths
+
+For melody note `i`, the length is computed as:
+
+<p align="left">
+  <img alt="L_i = L_anchor * f_anchor / f_i" src="https://latex.codecogs.com/svg.image?L_i%20%3D%20L_%7B%5Ctext%7Banchor%7D%7D%20%5Ccdot%20%5Cfrac%7Bf_%7B%5Ctext%7Banchor%7D%7D%7D%7Bf_i%7D" />
+</p>
+
+This ensures:
+- uniform tension across melody strings
+- predictable scaling when the anchor changes
+
+---
+
+## String Gauge Specification
+
+The string gauge determines the linear density `μ`.  
+It **must** be specified explicitly.
+
+### `uw` mode (recommended)
+
+- Gauge is specified using manufacturer **Unit Weight (UW)**
+- `μ` is derived directly from UW
+- Best match to real commercial strings where data is available from the manufacturer.
+
+Example:
+
+--uw-melody 0.000545
+--uw-drone 0.000850
