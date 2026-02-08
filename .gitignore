@@ -180,4 +180,4 @@ cython_debug/
 .cursorignore
 .cursorindexingignore
 .~lock.kantele_calc.fods\#
-my_kantele.20260209-001446.FCBak
+*.FCBak
